@@ -5,14 +5,14 @@ class Question_2{
     int rows = nums.length;
     int cols= nums[0].length;
     int sum=0;
-    int maxSum=0;
+    int maxSum=Integer.MIN_VALUE;
 
-    for(i=0;i<cols;i++){
+    for(int i=0;i<cols;i++){
       //loop to find the sub matrix
-      for(j=i;j<cols;j++){
+      int[] temp=new int[rows];
+      for(int j=i;j<cols;j++){
         //technique to compress the submatrix int 1D array
-        int[] temp=[0]*rows;
-        for(k=0;k<rows;k++){
+        for(int k=0;k<rows;k++){
           temp[k]+=nums[k][j];
         }
         //Applying kadane algo on compressed array
@@ -21,6 +21,7 @@ class Question_2{
 
       }
     }
+    return maxSum;
 
   }
 
@@ -37,6 +38,13 @@ class Question_2{
       max_sum=Math.max(max_sum,cur_sum);
     }
     return max_sum;
+  }
+
+  public static void main(String[] args){
+
+    Question_2 q2 = new Question_2();
+    System.out.println(q2.maxValue(new int[][]{{1,-2,3},{-4,5,-6},{7,-8,9}}));
+
   }
 
 }
