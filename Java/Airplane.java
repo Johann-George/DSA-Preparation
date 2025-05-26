@@ -19,6 +19,7 @@ class Airplane {
   public static void main(String[] args) {
 
     Scanner sc = new Scanner(System.in);
+    //Custom comparator to sort passengers based on priority
     PriorityQueue<Passenger> queue = new PriorityQueue<>(new Comparator<Passenger>() {
       public int compare(Passenger a, Passenger b) {
         return Integer.compare(a.priority, b.priority);
@@ -36,6 +37,7 @@ class Airplane {
       queue.add(passenger);
     }
     System.out.println("Boarding order");
+    // The order in which customers board the plane
     while (!queue.isEmpty()) {
       System.out.println("Passenger Name:" + queue.poll().Name);
     }

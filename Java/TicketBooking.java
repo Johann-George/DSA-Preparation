@@ -17,13 +17,16 @@ public class TicketBooking {
             System.out.println("Are you a vip:");
             vip = sc.nextBoolean();
             if(vip){
+                //if vip then add them to the front row
                 queue.addFirst(name);
             }
             else{
+                //if not vip then add them to the back
                 queue.addLast(name);
             }
         }
         System.out.println("The order of people are:");
+        //Display the order of customers
         for(int i=0;i<no;i++){
             System.out.println(queue.poll());
         }
