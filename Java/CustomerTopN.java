@@ -19,12 +19,18 @@ public class CustomerTopN{
 
     //list to sort the customers acc to no of transactions
     List<Map.Entry<String, Integer>> sortedList = new ArrayList<>(transNoMap.entrySet());
-    sortedList.sort((e1,e2)-> Double.compare(e2.getValue(), e1.getValue()));
+    sortedList.sort((e1,e2)-> {
+      int cmp = Integer.compare(e2.getValue(), e1.getValue());
+      if(cmp == 0){
+        return e1.getKey().compareTo(e2.getKey());
+      }
+      return cmp;
+    });
 
     //topN customers stored in a LinkedHashMap
     Map<String, Integer> sortedMap = new LinkedHashMap<>();
     for(Map.Entry<String, Integer> entry: sortedList){
-      if(sortedMap.size()<=topN){
+      if(sortedMap.size()<topN){
         sortedMap.put(entry.getKey(), entry.getValue());
       }
     }
