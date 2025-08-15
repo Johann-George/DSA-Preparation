@@ -15,14 +15,12 @@ public class EquifaxCodingTest{
       new Transaction("C004", 2600.00, LocalDate.of(2025, 5, 12))
     );
 
-    CustomerTopN ctopN = new CustomerTopN();
-    HashMap<String, Double> map = new LinkedHashMap<>(ctopN.filterTransactions(transactions, 3));
-    Iterator<Map.Entry<String, Double>> mapIterator = map.entrySet().iterator();
-
-    while(mapIterator.hasNext()){
-      Map.Entry<String, Double> entry = mapIterator.next();
-      System.out.println("Customer ID:"+entry.getKey()+", Amount:"+entry.getValue());
+    CustomerPremium cp = new CustomerPremium();
+    Map<String, Double> map = new LinkedHashMap<>(cp.filterTransactions(transactions, 1500, 2));
+    for(Map.Entry<String, Double> entry: map.entrySet()){
+      System.out.println("Customer ID:"+entry.getKey()+" Customer Amount:"+entry.getValue());
     }
+    
   }
 
 }
