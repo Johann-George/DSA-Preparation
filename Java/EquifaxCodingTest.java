@@ -15,12 +15,37 @@ public class EquifaxCodingTest{
       new Transaction("C004", 2600.00, LocalDate.of(2025, 5, 12))
     );
 
-    CustomerPremium cp = new CustomerPremium();
-    Map<String, Double> map = new LinkedHashMap<>(cp.filterTransactions(transactions, 1500, 2));
-    for(Map.Entry<String, Double> entry: map.entrySet()){
-      System.out.println("Customer ID:"+entry.getKey()+" Customer Amount:"+entry.getValue());
-    }
+    // CustomerPremium cp = new CustomerPremium();
+    // Map<String, Double> map = new LinkedHashMap<>(cp.filterTransactions(transactions, 1500, 2));
+    // for(Map.Entry<String, Double> entry: map.entrySet()){
+    //   System.out.println("Customer ID:"+entry.getKey()+" Customer Amount:"+entry.getValue());
+    // }
+
+    Map<String, CustomerStats> customerMap = new HashMap<>();
     
+    for(Transaction t : transactions){
+      customerMap.putIfAbsent(t.getCustomerId(), new CustomerStats());
+      customerMap.get(t.getCustomerId()).update(t);
+    }
+
+    List<Results> customerList = new ArrayList<>();
+    for(Map.Entry<String, CustomerStats> entry: customerMap.entrySet()){
+      customerList.add(new Results(entry.getKey(), entry.getValue()));
+    }
+
+    customerList.sort((a,b)->{
+      if(Double.compare(a.getRange(),b.getRange())!=0){
+        return Double.compare(b.getRange(), a.getRange());
+      }
+      else{
+        return a.getCustomerId().compareTo(b.getCustomerId());
+      }
+    });
+
+    for(Results r: customerList){
+      System.out.println("Customer ID:"+r.getCustomerId()+" Customer Range:"+r.getRange());
+    }
+
   }
 
 }
